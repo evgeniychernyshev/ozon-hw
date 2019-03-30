@@ -1,9 +1,10 @@
-def create_book(title, author, price, availability):
+def create_book(title, author, price, availability, tags):
     return {
         'title': title,
         'author': author,
         'price': price,
-        'available': availability
+        'available': availability,
+        'tags': tags
     }
 
 
@@ -30,5 +31,11 @@ def search_books(container, search):  # search - строка поиска
         if search_lowercased in book['author'].lower():
             result.append(book)
             continue  # пока не нужно, но на будущее пригодиться, если будем добавлять новые возможности
+
+        if 'tags' in book:
+            for tag in book['tags']:
+                if tag.lower() == search_lowercased.strip('#'):
+                    result.append(book)
+                    continue
 
     return result
