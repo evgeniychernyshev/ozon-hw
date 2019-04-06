@@ -7,7 +7,7 @@ war_and_piece = create_book(
     'Толстой',
     1000,
     True,
-    ('Война', 'Любовь', 'Толстой')
+    ['Война', 'Любовь', 'Толстой']
 )
 
 anna_karenina = create_book(
@@ -15,7 +15,7 @@ anna_karenina = create_book(
     'Толстой',
     500,
     False,
-    ('Поезд', 'Любовь', 'Толстой')
+    ['Поезд', 'Любовь', 'Толстой']
 )
 
 # print(list(anna_karenina.keys()))
