@@ -32,10 +32,9 @@ def search_books(container, search):  # search - строка поиска
             result.append(book)
             continue  # пока не нужно, но на будущее пригодиться, если будем добавлять новые возможности
 
-        if 'tags' in book:
-            for tag in book['tags']:
-                if tag.lower() == search_lowercased.strip('#'):
-                    result.append(book)
-                    continue
+        for tag in book['tags']:
+            if tag.lower() == search_lowercased.strip('#'):
+                result.append(book)
+                continue
 
     return result
