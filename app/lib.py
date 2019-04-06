@@ -1,23 +1,28 @@
-def create_book(title, author, price, availability, tags):
+import uuid
+
+
+def create_book(title, author, tags):
     return {
+        'id': str(uuid.uuid4()),
         'title': title,
         'author': author,
-        'price': price,
-        'available': availability,
         'tags': tags
     }
 
 
-def add_book(container, book):  # не чистая функция
-    container.append(book)
-    # return container # TODO: вернуться к этому вопросу позже
+def create_empty_book():
+    return {
+        'id': str(uuid.uuid4()),
+        'title': '',
+        'author': '',
+        'tags': []
+    }
 
 
-def list_books(container, page, page_size):
-    # page_size = 50
-    start = (page - 1) * page_size  # для первой страницы стартуем с 0
-    finish = start + page_size
-    return container[start:finish]
+def add_book(container, book):
+    copy = container[:]
+    copy.append(book)
+    return copy
 
 
 def search_books(container, search):  # search - строка поиска
@@ -26,11 +31,11 @@ def search_books(container, search):  # search - строка поиска
     for book in container:
         if search_lowercased in book['title'].lower():
             result.append(book)
-            continue  # не даёт идти дальше на 30 строку
+            continue
 
         if search_lowercased in book['author'].lower():
             result.append(book)
-            continue  # пока не нужно, но на будущее пригодиться, если будем добавлять новые возможности
+            continue
 
         for tag in book['tags']:
             if tag.lower() == search_lowercased.strip('#'):
@@ -38,3 +43,18 @@ def search_books(container, search):  # search - строка поиска
                 continue
 
     return result
+
+
+def search_book_by_id(container, id):
+    for book in container:
+        if book['id'] == id:
+            return book
+
+
+def remove_book_by_id(container, book_id):
+    result = []
+    for book in container:
+        if book['id'] != book_id:
+            result.append(book)
+    return result
+
