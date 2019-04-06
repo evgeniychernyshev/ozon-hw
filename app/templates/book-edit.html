@@ -26,8 +26,13 @@
                 </div>
                 <div class="form-row">
                     <div class="col">
-                        <label for="TagsInput">Title:</label>
-                        <input type="text" id="TagsInput" class="form-control" value="{{ book.tags }}" name="tags" required>
+                        <div class="mt-2">
+                            <label for="TagsInput">Tags:</label>
+                            {% for tag in book.tags %}
+                            {% set tags = '#' + tag + ' ' %}
+                            {% endfor %}
+                            <input type="text" id="TagsInput" class="form-control"  value="{{ book.tags }}"  name="tags" required>
+                        </div>
                     </div>
                 </div>
                 <div class="mt-2">
