@@ -12,7 +12,7 @@ def create_book(title, author, tags):
 
 def create_empty_book():
     return {
-        'id': str(uuid.uuid4()),
+        'id': 'new',
         'title': '',
         'author': '',
         'tags': []
@@ -41,7 +41,6 @@ def search_books(container, search):  # search - строка поиска
             if tag.lower() == search_lowercased.strip('#'):
                 result.append(book)
                 continue
-
     return result
 
 
@@ -58,3 +57,7 @@ def remove_book_by_id(container, book_id):
             result.append(book)
     return result
 
+
+def create_tags(tags):
+    tags = tags.strip(' ')
+    return tags.split(' ')

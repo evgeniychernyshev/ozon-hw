@@ -27,15 +27,23 @@
                 <div class="form-row">
                     <div class="col">
                         <div class="mt-2">
+                            {% if not book.tags %}
+                            <label for="TagsInputEmpty">Tags:</label>
+                            <input type="text" id="TagsInputEmpty" class="form-control"  value=""  name="tags" required>
+                            {% else %}
                             <label for="TagsInput">Tags:</label>
-                            {% for tag in book.tags %}
-                            {% set tags = '#' + tag + ' ' %}
-                            {% endfor %}
-                            <input type="text" id="TagsInput" class="form-control"  value="{{ book.tags }}"  name="tags" required>
+                            <input type="text" id="TagsInput" class="form-control"  value="{% for tag in book.tags %}{{ tag }} {% endfor %}"  name="tags" required>
+                            {% endif %}
+                            <small id="TagsHelp" class="form-text text-muted">Use space-separated tags</small>
                         </div>
                     </div>
                 </div>
                 <div class="mt-2">
+                    {% if book.id != 'new' %}
+                    <a href="{{ url_for('book_details', book_id=book.id) }}" class="btn btn-outline-primary">Back</a>
+                    {% else %}
+                    <a href="{{ url_for('index') }}" class="btn btn-outline-primary">Back</a>
+                    {% endif %}
                     <button class="btn btn-primary">Save</button>
                 </div>
             </form>

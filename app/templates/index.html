@@ -24,7 +24,11 @@
             <ul class="list-group mt-2">
                 {% for book in books %}
                     <li class="list-group-item">
-                        <a href="{{ url_for('book_details', book_id=book.id) }}"> {{ book.title }}, Author: {{ book.author }} </a>
+                        <a href="{{ url_for('book_details', book_id=book.id) }}"> {{ book.title }}, Author: {{ book.author }}, Tags:
+                            {% for tag in book.tags %}
+                                #{{ tag }}
+                            {% endfor %}
+                        </a>
                     </li>
                 {% endfor %}
             </ul>

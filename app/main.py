@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, url_for
 from werkzeug.utils import redirect
-from app.lib import create_book, add_book, search_books, search_book_by_id, remove_book_by_id, create_empty_book
+from app.lib import create_book, add_book, search_books, search_book_by_id, remove_book_by_id, create_empty_book, create_tags
 
 
 def main():
@@ -43,12 +43,15 @@ def main():
         nonlocal container
         title = request.form['title']
         author = request.form['author']
+        tags = create_tags(request.form['tags'])
         if book_id == 'new':
-            book = create_book(title=title, author=author)
+            book = create_book(title=title, author=author, tags=tags)
             container = add_book(container, book)
         else:
             book = search_book_by_id(container, book_id)
-            pass  # TODO сохранить изменеия
+            book['title'] = request.form['title']
+            book['author'] = request.form['author']
+            book['tags'] = create_tags(request.form['tags'])
         return redirect(url_for('book_details', book_id=book['id']))
 
     @app.route('/books/<book_id>/remove', methods=['POST'])
