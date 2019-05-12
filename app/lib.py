@@ -26,7 +26,7 @@ def add_book(container, book):
 
 
 def search_books(container, search):  # search - строка поиска
-    search_lowercased = search.strip().lower()  # 1. search.strip() 2. (результат search.strip()).lower()
+    search_lowercased = search.strip().lower()
     result = []
     for book in container:
         if search_lowercased in book['title'].lower():
