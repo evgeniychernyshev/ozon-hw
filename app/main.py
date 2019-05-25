@@ -1,9 +1,12 @@
+import os
+
+import waitress
 from flask import Flask, render_template, request, url_for
 from werkzeug.utils import redirect
 from app.lib import create_book, add_book, search_books, search_book_by_id, remove_book_by_id, create_empty_book, create_tags
 
 
-def main():
+def start():
     app = Flask(__name__)
 
     container = []
@@ -60,8 +63,11 @@ def main():
         container = remove_book_by_id(container, book_id)
         return redirect(url_for('index'))
 
-    app.run(port=9877, debug=True)
+    if os.getenv('APP_ENV') == 'PROD' and os.getenv('PORT'):
+        waitress.serve(app, port=os.getenv('PORT'))
+    else:
+        app.run(port=9877, debug=True)
 
 
 if __name__ == '__main__':
-    main()
+    start()
